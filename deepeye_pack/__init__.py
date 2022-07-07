@@ -182,12 +182,12 @@ class deepeye(object):
         sys.exit(0)
 
 ##### data import function
-    def from_csv(self,path):
+    def from_csv(self,df):
         """
-        read the csv file
+        read the df
 
         Args:
-            path(str): the path of the csv file
+            df(pd dataframe) : dataframe for visualization
 
         Returns:
             None
@@ -195,13 +195,15 @@ class deepeye(object):
         """
         self.csv_path = path
 
-        try:
-            fh = open(self.csv_path, "r")
-        except IOError:
-            print("Error: no such file or directory")  
+#         try:
+#             fh = open(self.csv_path, "r")
+#         except IOError:
+#             print("Error: no such file or directory")  
 
-        self.csv_dataframe = pd.DataFrame(pd.read_csv(self.csv_path, header=0, keep_default_na=False)).dropna(axis=0, how='any')
-        test = pd.DataFrame(pd.read_csv(self.csv_path)).dropna(axis=0, how='any')
+#         self.csv_dataframe = pd.DataFrame(pd.read_csv(self.csv_path, header=0, keep_default_na=False)).dropna(axis=0, how='any')
+#         test = pd.DataFrame(pd.read_csv(self.csv_path)).dropna(axis=0, how='any')
+        self.csv_dataframe = df.copy().dropna(axis=0, how='any')
+        test = df.copy().dropna(axis=0, how='any')
         types = [0 for i in range(len(test.dtypes))]
         a = fh.readline()
         a = a[:-1] # remove '\n'
